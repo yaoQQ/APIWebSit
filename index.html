@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI API Documentation — APIWebSit</title>
+  <title>AI API 文档 — APIWebSit</title>
   <style>
     /* ============================================================
        CSS Custom Properties & Theme
@@ -862,16 +862,16 @@
        Top Navigation Bar
        ============================================================ -->
   <header class="top-nav" role="banner">
-    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar navigation">
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="切换侧边栏导航">
       &#9776;
     </button>
     <span class="logo">APIWebSit</span>
-    <span class="logo-sub">Docs</span>
+    <span class="logo-sub">文档</span>
     <div class="nav-right">
-      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+      <button id="themeToggle" class="theme-toggle" aria-label="切换主题">
         <span class="icon-light">&#9728;</span>
         <span class="icon-dark">&#9790;</span>
-        <span class="theme-label" id="themeLabel">Dark</span>
+        <span class="theme-label" id="themeLabel">深色</span>
       </button>
       <span class="version">v1.0.0</span>
     </div>
@@ -886,17 +886,17 @@
   <div class="layout">
 
     <!-- ======================== Left Sidebar ======================== -->
-    <nav class="sidebar" id="sidebar" aria-label="Documentation navigation">
-      <div class="nav-header">Documentation</div>
+    <nav class="sidebar" id="sidebar" aria-label="文档导航">
+      <div class="nav-header">文档</div>
       <ul class="nav-list">
         <li>
           <a href="#introduction" class="nav-link nav-link-parent active">
-            Introduction
+            简介
             <span class="nav-chevron">&#9654;</span>
           </a>
           <ul class="sub-nav open" id="sub-introduction">
-            <li><a href="#overview" class="nav-link">Overview</a></li>
-            <li><a href="#ecosystem" class="nav-link">Ecosystem</a></li>
+            <li><a href="#overview" class="nav-link">概览</a></li>
+            <li><a href="#ecosystem" class="nav-link">生态</a></li>
           </ul>
         </li>
         <li>
@@ -905,11 +905,11 @@
             <span class="nav-chevron">&#9654;</span>
           </a>
           <ul class="sub-nav" id="sub-claude-code">
-            <li><a href="#cc-quickstart" class="nav-link">Quickstart</a></li>
-            <li><a href="#cc-installation" class="nav-link">Installation</a></li>
-            <li><a href="#cc-configuration" class="nav-link">Configuration</a></li>
-            <li><a href="#cc-cli" class="nav-link">CLI Reference</a></li>
-            <li><a href="#cc-api" class="nav-link">API Reference</a></li>
+            <li><a href="#cc-quickstart" class="nav-link">快速开始</a></li>
+            <li><a href="#cc-installation" class="nav-link">安装指南</a></li>
+            <li><a href="#cc-configuration" class="nav-link">配置说明</a></li>
+            <li><a href="#cc-cli" class="nav-link">CLI 参考</a></li>
+            <li><a href="#cc-api" class="nav-link">API 参考</a></li>
           </ul>
         </li>
         <li>
@@ -918,11 +918,11 @@
             <span class="nav-chevron">&#9654;</span>
           </a>
           <ul class="sub-nav" id="sub-hermes">
-            <li><a href="#hermes-quickstart" class="nav-link">Quickstart</a></li>
-            <li><a href="#hermes-installation" class="nav-link">Installation</a></li>
-            <li><a href="#hermes-configuration" class="nav-link">Configuration</a></li>
-            <li><a href="#hermes-providers" class="nav-link">Providers</a></li>
-            <li><a href="#hermes-cli" class="nav-link">CLI Reference</a></li>
+            <li><a href="#hermes-quickstart" class="nav-link">快速开始</a></li>
+            <li><a href="#hermes-installation" class="nav-link">安装指南</a></li>
+            <li><a href="#hermes-configuration" class="nav-link">配置说明</a></li>
+            <li><a href="#hermes-providers" class="nav-link">提供商</a></li>
+            <li><a href="#hermes-cli" class="nav-link">CLI 参考</a></li>
           </ul>
         </li>
       </ul>
@@ -933,28 +933,28 @@
 
       <!-- ============== INTRODUCTION ============== -->
       <section id="introduction" class="doc-section">
-        <h1>Introduction</h1>
+        <h1>简介</h1>
 
         <section id="overview">
-          <h2>Platform Overview</h2>
+          <h2>平台概览</h2>
           <p class="lead">
-            Welcome to <strong>APIWebSit</strong> — your central documentation portal for cutting-edge AI developer tools.
+            欢迎使用 <strong>APIWebSit</strong> — 您的尖端 AI 开发者工具中央文档门户。
           </p>
           <p>
-            This platform provides comprehensive API references, implementation guides, and best practices for two of the most powerful AI development platforms available today: <strong>Claude Code</strong> by Anthropic and <strong>Hermes Agent</strong> by Nous Research.
+            本平台提供当今两款最强大 AI 开发平台的全面 API 参考、实施指南和最佳实践：Anthropic 的 <strong>Claude Code</strong> 和 Nous Research 的 <strong>Hermes Agent</strong>。
           </p>
           <p>
-            Whether you are building agentic coding workflows, integrating large language models into your application, or exploring the frontier of self-improving AI agents, this documentation will help you get started quickly and use these tools effectively.
+            无论您是在构建智能编码工作流、将大语言模型集成到您的应用程序中，还是探索自我改进 AI 代理的前沿领域，本文档都将帮助您快速上手并高效使用这些工具。
           </p>
           <div class="callout">
-            <strong>New here?</strong> Start with the Quickstart guides for each platform. They walk you through installation, authentication, and your first interactive session in under five minutes.
+            <strong>新手上路？</strong> 从每个平台的快速开始指南入手。它们将引导您在五分钟内完成安装、身份验证和首次交互式会话。
           </div>
         </section>
 
         <section id="ecosystem">
-          <h2>Ecosystem</h2>
+          <h2>生态</h2>
           <p>
-            The AI development landscape is evolving rapidly. APIWebSit focuses on two complementary platforms that represent different approaches to AI-assisted development:
+            AI 开发领域正在快速发展。APIWebSit 聚焦于两个互补的平台，它们代表了 AI 辅助开发的不同路径：
           </p>
 
           <div class="compare-grid">
@@ -962,60 +962,60 @@
               <span class="badge">Anthropic</span>
               <h3>Claude Code</h3>
               <p>
-                Anthropic's agentic CLI tool for AI-assisted software development. Deeply integrated with the Claude API ecosystem, Claude Code operates as an autonomous coding assistant directly in your terminal — reading files, writing code, running commands, and managing complex multi-step development workflows.
+                Anthropic 的 AI 辅助软件开发智能 CLI 工具。与 Claude API 生态系统深度集成，Claude Code 作为自主编码助手直接在您的终端中运行 — 读取文件、编写代码、执行命令以及管理复杂的多步骤开发工作流。
               </p>
             </div>
             <div class="compare-card">
               <span class="badge">Nous Research</span>
               <h3>Hermes Agent</h3>
               <p>
-                An open-source, self-improving AI agent framework supporting 400+ models across 20+ providers. Hermes focuses on flexibility and provider-agnostic design, allowing you to switch between Anthropic, OpenAI, DeepSeek, local models, and more with a single configuration change.
+                一个开源、自我改进的 AI 代理框架，支持跨 20 多个提供商的 400 多种模型。Hermes 专注于灵活性和提供商无关的设计，允许您通过一次配置更改在 Anthropic、OpenAI、DeepSeek、本地模型等之间切换。
               </p>
             </div>
           </div>
 
           <p>
-            Both platforms support MCP (Model Context Protocol) servers, tool use, and extensible plugin architectures, but they differ in their primary use cases and deployment models:
+            两个平台都支持 MCP（模型上下文协议）服务器、工具使用和可扩展的插件架构，但它们在主要用途和部署模型上有所不同：
           </p>
 
           <table>
             <thead>
               <tr>
-                <th>Feature</th>
+                <th>特性</th>
                 <th>Claude Code</th>
                 <th>Hermes Agent</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Type</strong></td>
-                <td>Agentic CLI tool</td>
-                <td>Agent framework</td>
+                <td><strong>类型</strong></td>
+                <td>智能 CLI 工具</td>
+                <td>代理框架</td>
               </tr>
               <tr>
-                <td><strong>Vendor</strong></td>
+                <td><strong>供应商</strong></td>
                 <td>Anthropic</td>
-                <td>Nous Research (open source)</td>
+                <td>Nous Research（开源）</td>
               </tr>
               <tr>
-                <td><strong>Models</strong></td>
-                <td>Claude family only</td>
-                <td>400+ models via 20+ providers</td>
+                <td><strong>模型</strong></td>
+                <td>仅 Claude 系列</td>
+                <td>400+ 模型，20+ 提供商</td>
               </tr>
               <tr>
-                <td><strong>License</strong></td>
-                <td>Proprietary</td>
+                <td><strong>许可证</strong></td>
+                <td>专有</td>
                 <td>Apache 2.0 / MIT</td>
               </tr>
               <tr>
-                <td><strong>Primary Use</strong></td>
-                <td>AI-assisted coding in terminal</td>
-                <td>General-purpose agent orchestration</td>
+                <td><strong>主要用途</strong></td>
+                <td>终端中的 AI 辅助编码</td>
+                <td>通用代理编排</td>
               </tr>
               <tr>
-                <td><strong>MCP Support</strong></td>
-                <td>&#10003; Built-in</td>
-                <td>&#10003; Built-in</td>
+                <td><strong>MCP 支持</strong></td>
+                <td>&#10003; 内置</td>
+                <td>&#10003; 内置</td>
               </tr>
             </tbody>
           </table>
@@ -1025,50 +1025,50 @@
       <!-- ============== CLAUDE CODE ============== -->
       <section id="claude-code" class="doc-section">
         <h1>Claude Code</h1>
-        <p class="subtitle">Anthropic's agentic coding tool — an AI teammate that lives in your terminal.</p>
+        <p class="subtitle">Anthropic 的智能编码工具 — 驻留在您终端中的 AI 队友。</p>
 
         <section id="cc-quickstart">
-          <h2>Quickstart</h2>
+          <h2>快速开始</h2>
           <p>
-            Get Claude Code running in under two minutes. You'll need a terminal and an <a href="https://console.anthropic.com" target="_blank" rel="noopener">Anthropic API key</a>.
+            在两分钟内让 Claude Code 运行起来。您需要一个终端和一个 <a href="https://console.anthropic.com" target="_blank" rel="noopener">Anthropic API 密钥</a>。
           </p>
 
-          <h3>1. Install Claude Code</h3>
-          <p>Run the official installer in your terminal:</p>
+          <h3>1. 安装 Claude Code</h3>
+          <p>在终端中运行官方安装程序：</p>
           <pre class="language-bash"><code class="language-bash"># Install
 curl -fsSL https://claude.ai/install.sh | bash</code></pre>
 
-          <h3>2. Set your API key</h3>
-          <p>Claude Code authenticates using the <code>ANTHROPIC_API_KEY</code> environment variable:</p>
+          <h3>2. 设置您的 API 密钥</h3>
+          <p>Claude Code 使用 <code>ANTHROPIC_API_KEY</code> 环境变量进行身份验证：</p>
           <pre class="language-bash"><code class="language-bash"># Set API key
 export ANTHROPIC_API_KEY="sk-ant-..."</code></pre>
 
-          <h3>3. Start coding</h3>
-          <p>Navigate to your project directory and launch Claude Code:</p>
+          <h3>3. 开始编码</h3>
+          <p>导航到您的项目目录并启动 Claude Code：</p>
           <pre class="language-bash"><code class="language-bash"># Start coding
 cd my-project
 claude</code></pre>
 
           <p>
-            That's it. Claude Code will analyze your project structure and present an interactive REPL session. Try asking it to explain a file, write a function, or debug an issue.
+            大功告成。Claude Code 将分析您的项目结构并呈现一个交互式 REPL 会话。尝试让它解释文件、编写函数或调试问题。
           </p>
 
           <div class="callout">
-            <strong>Pro tip:</strong> You can also use <code>claude -p "your prompt"</code> for one-shot queries without entering the interactive session — perfect for CI/CD pipelines and quick questions.
+            <strong>专业提示：</strong> 您也可以使用 <code>claude -p "your prompt"</code> 进行一次性查询，无需进入交互式会话 — 非常适合 CI/CD 流水线和快速提问。
           </div>
         </section>
 
         <section id="cc-installation">
-          <h2>Installation</h2>
+          <h2>安装指南</h2>
           <p>
-            Claude Code supports multiple installation methods across platforms. Choose the one that works best for your environment:
+            Claude Code 支持跨平台的多种安装方式。选择最适合您环境的方法：
           </p>
 
           <table>
             <thead>
               <tr>
-                <th>Platform</th>
-                <th>Command</th>
+                <th>平台</th>
+                <th>命令</th>
               </tr>
             </thead>
             <tbody>
@@ -1085,33 +1085,33 @@ claude</code></pre>
                 <td><code>brew install --cask claude-code</code></td>
               </tr>
               <tr>
-                <td>npm (legacy)</td>
+                <td>npm（旧版）</td>
                 <td><code>npm install -g @anthropic-ai/claude-code</code></td>
               </tr>
             </tbody>
           </table>
 
           <p>
-            After installation, verify everything is working by running <code>claude doctor</code>, which performs a diagnostic health check on your environment:
+            安装后，运行 <code>claude doctor</code> 验证一切是否正常工作，该命令会对您的环境执行诊断健康检查：
           </p>
           <pre class="language-bash"><code class="language-bash">claude doctor</code></pre>
         </section>
 
         <section id="cc-configuration">
-          <h2>Configuration</h2>
+          <h2>配置说明</h2>
           <p>
-            Claude Code uses a layered configuration system. Settings are resolved from highest to lowest priority in the following hierarchy:
+            Claude Code 使用分层配置系统。设置按以下层级从高到低优先级解析：
           </p>
           <ol>
-            <li><strong>Session flags</strong> — CLI arguments like <code>--model</code> and <code>--allowedTools</code></li>
-            <li><strong>Project-level settings</strong> — <code>.claude/settings.json</code> in the current project</li>
-            <li><strong>Home directory settings</strong> — <code>~/.claude/settings.json</code></li>
-            <li><strong>Global configuration</strong> — set via <code>claude config set -g</code></li>
-            <li><strong>Defaults</strong> — built-in Claude Code defaults</li>
+            <li><strong>会话标志</strong> — 诸如 <code>--model</code> 和 <code>--allowedTools</code> 之类的 CLI 参数</li>
+            <li><strong>项目级设置</strong> — 当前项目中的 <code>.claude/settings.json</code></li>
+            <li><strong>主目录设置</strong> — <code>~/.claude/settings.json</code></li>
+            <li><strong>全局配置</strong> — 通过 <code>claude config set -g</code> 设置</li>
+            <li><strong>默认值</strong> — Claude Code 内置默认值</li>
           </ol>
 
           <p>
-            Here is an example project-level <code>settings.json</code>:
+            以下是项目级 <code>settings.json</code> 的示例：
           </p>
           <pre class="language-json"><code class="language-json">{
   "model": "claude-sonnet-4-6",
@@ -1133,167 +1133,167 @@ claude</code></pre>
   }
 }</code></pre>
 
-          <h3>Environment Variables</h3>
-          <p>Key environment variables for configuring Claude Code behavior:</p>
+          <h3>环境变量</h3>
+          <p>配置 Claude Code 行为的关键环境变量：</p>
 
           <table>
             <thead>
               <tr>
-                <th>Variable</th>
-                <th>Description</th>
+                <th>变量</th>
+                <th>描述</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>ANTHROPIC_API_KEY</code></td>
-                <td>API key for authentication</td>
+                <td>用于身份验证的 API 密钥</td>
               </tr>
               <tr>
                 <td><code>ANTHROPIC_BASE_URL</code></td>
-                <td>Custom API base URL</td>
+                <td>自定义 API 基础 URL</td>
               </tr>
               <tr>
                 <td><code>ANTHROPIC_MODEL</code></td>
-                <td>Default model override</td>
+                <td>默认模型覆盖</td>
               </tr>
               <tr>
                 <td><code>CLAUDE_CODE_USE_BEDROCK=1</code></td>
-                <td>Use Amazon Bedrock as backend</td>
+                <td>使用 Amazon Bedrock 作为后端</td>
               </tr>
               <tr>
                 <td><code>CLAUDE_CODE_USE_VERTEX=1</code></td>
-                <td>Use Google Vertex AI as backend</td>
+                <td>使用 Google Vertex AI 作为后端</td>
               </tr>
             </tbody>
           </table>
         </section>
 
         <section id="cc-cli">
-          <h2>CLI Reference</h2>
+          <h2>CLI 参考</h2>
           <p>
-            Claude Code provides a rich set of commands, flags, and in-session slash commands for controlling its behavior.
+            Claude Code 提供了丰富的命令、标志和会话内斜杠命令，用于控制其行为。
           </p>
 
-          <h3>Commands</h3>
+          <h3>命令</h3>
           <table>
             <thead>
               <tr>
-                <th>Command</th>
-                <th>Description</th>
+                <th>命令</th>
+                <th>描述</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>claude</code></td>
-                <td>Start interactive REPL session</td>
+                <td>启动交互式 REPL 会话</td>
               </tr>
               <tr>
                 <td><code>claude -p "prompt"</code></td>
-                <td>Print mode — query once and exit</td>
+                <td>打印模式 — 查询一次后退出</td>
               </tr>
               <tr>
                 <td><code>claude -c</code></td>
-                <td>Continue most recent conversation</td>
+                <td>继续最近的对话</td>
               </tr>
               <tr>
                 <td><code>claude doctor</code></td>
-                <td>Diagnostic health check</td>
+                <td>诊断健康检查</td>
               </tr>
               <tr>
                 <td><code>claude update</code></td>
-                <td>Update to latest version</td>
+                <td>更新到最新版本</td>
               </tr>
               <tr>
                 <td><code>claude config set -g key value</code></td>
-                <td>Configure global settings</td>
+                <td>配置全局设置</td>
               </tr>
               <tr>
                 <td><code>claude mcp list</code></td>
-                <td>List configured MCP servers</td>
+                <td>列出已配置的 MCP 服务器</td>
               </tr>
             </tbody>
           </table>
 
-          <h3>CLI Flags</h3>
+          <h3>CLI 标志</h3>
           <table>
             <thead>
               <tr>
-                <th>Flag</th>
-                <th>Description</th>
+                <th>标志</th>
+                <th>描述</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>--model</code></td>
-                <td>Specify the Claude model to use</td>
+                <td>指定要使用的 Claude 模型</td>
               </tr>
               <tr>
                 <td><code>--allowedTools</code></td>
-                <td>Comma-separated list of allowed tools</td>
+                <td>允许工具的逗号分隔列表</td>
               </tr>
               <tr>
                 <td><code>--disallowedTools</code></td>
-                <td>Comma-separated list of disallowed tools</td>
+                <td>禁止工具的逗号分隔列表</td>
               </tr>
               <tr>
                 <td><code>--max-turns</code></td>
-                <td>Maximum conversation turns before pausing</td>
+                <td>暂停前的最大对话轮次</td>
               </tr>
               <tr>
                 <td><code>--output-format</code></td>
-                <td>Output format (text, json, jsonl)</td>
+                <td>输出格式（text, json, jsonl）</td>
               </tr>
               <tr>
                 <td><code>--verbose</code></td>
-                <td>Enable verbose logging</td>
+                <td>启用详细日志记录</td>
               </tr>
             </tbody>
           </table>
 
-          <h3>Slash Commands</h3>
+          <h3>斜杠命令</h3>
           <p>
-            The following slash commands are available during interactive sessions:
+            以下斜杠命令在交互式会话期间可用：
           </p>
           <table>
             <thead>
               <tr>
-                <th>Command</th>
-                <th>Description</th>
+                <th>命令</th>
+                <th>描述</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td><code>/help</code></td><td>Show help information</td></tr>
-              <tr><td><code>/config</code></td><td>View and edit configuration</td></tr>
-              <tr><td><code>/model</code></td><td>Switch the active model</td></tr>
-              <tr><td><code>/agents</code></td><td>Manage agent configurations</td></tr>
-              <tr><td><code>/mcp</code></td><td>Manage MCP server connections</td></tr>
-              <tr><td><code>/fast</code></td><td>Enable fast mode (reduced verbosity)</td></tr>
-              <tr><td><code>/compact</code></td><td>Compact the conversation context</td></tr>
-              <tr><td><code>/clear</code></td><td>Clear the conversation history</td></tr>
-              <tr><td><code>/plan</code></td><td>Generate an implementation plan</td></tr>
-              <tr><td><code>/review</code></td><td>Review current changes</td></tr>
-              <tr><td><code>/cost</code></td><td>Show estimated API usage cost</td></tr>
-              <tr><td><code>/export</code></td><td>Export the conversation</td></tr>
-              <tr><td><code>/memory</code></td><td>Manage Claude's memory</td></tr>
-              <tr><td><code>/sandbox</code></td><td>Configure sandbox settings</td></tr>
-              <tr><td><code>/stats</code></td><td>Show usage statistics</td></tr>
-              <tr><td><code>/exit</code></td><td>Exit the session</td></tr>
+              <tr><td><code>/help</code></td><td>显示帮助信息</td></tr>
+              <tr><td><code>/config</code></td><td>查看和编辑配置</td></tr>
+              <tr><td><code>/model</code></td><td>切换活动模型</td></tr>
+              <tr><td><code>/agents</code></td><td>管理代理配置</td></tr>
+              <tr><td><code>/mcp</code></td><td>管理 MCP 服务器连接</td></tr>
+              <tr><td><code>/fast</code></td><td>启用快速模式（减少详细输出）</td></tr>
+              <tr><td><code>/compact</code></td><td>压缩对话上下文</td></tr>
+              <tr><td><code>/clear</code></td><td>清除对话历史</td></tr>
+              <tr><td><code>/plan</code></td><td>生成实施计划</td></tr>
+              <tr><td><code>/review</code></td><td>审查当前更改</td></tr>
+              <tr><td><code>/cost</code></td><td>显示预估 API 使用成本</td></tr>
+              <tr><td><code>/export</code></td><td>导出对话</td></tr>
+              <tr><td><code>/memory</code></td><td>管理 Claude 的记忆</td></tr>
+              <tr><td><code>/sandbox</code></td><td>配置沙箱设置</td></tr>
+              <tr><td><code>/stats</code></td><td>显示使用统计</td></tr>
+              <tr><td><code>/exit</code></td><td>退出会话</td></tr>
             </tbody>
           </table>
         </section>
 
         <section id="cc-api">
-          <h2>API Reference</h2>
+          <h2>API 参考</h2>
           <p>
-            Claude Code is built on the <a href="https://docs.anthropic.com/en/api" target="_blank" rel="noopener">Anthropic Messages API</a>. You can integrate directly with the API to build custom tooling and workflows around Claude.
+            Claude Code 基于 <a href="https://docs.anthropic.com/en/api" target="_blank" rel="noopener">Anthropic Messages API</a> 构建。您可以直接集成该 API，围绕 Claude 构建自定义工具和工作流。
           </p>
 
           <h3>Messages API</h3>
           <p>
-            The Messages API allows you to send conversations to Claude and receive streaming or non-streaming responses. Here are examples in Python and JavaScript:
+            Messages API 允许您向 Claude 发送对话并接收流式或非流式响应。以下是 Python 和 JavaScript 的示例：
           </p>
 
-          <h4>Python (using the Anthropic SDK)</h4>
+          <h4>Python（使用 Anthropic SDK）</h4>
           <pre class="language-python"><code class="language-python">import anthropic
 
 client = anthropic.Anthropic(
@@ -1308,7 +1308,7 @@ response = client.messages.create(
 
 print(response.content[0].text)</code></pre>
 
-          <h4>JavaScript / TypeScript (using the Anthropic SDK)</h4>
+          <h4>JavaScript / TypeScript（使用 Anthropic SDK）</h4>
           <pre class="language-javascript"><code class="language-javascript">import Anthropic from '@anthropic-ai/sdk';
 
 const client = new Anthropic({
@@ -1323,45 +1323,45 @@ const response = await client.messages.create({
 
 console.log(response.content[0].text);</code></pre>
 
-          <h3>Key Parameters</h3>
+          <h3>关键参数</h3>
           <table>
             <thead>
               <tr>
-                <th>Parameter</th>
-                <th>Type</th>
-                <th>Description</th>
+                <th>参数</th>
+                <th>类型</th>
+                <th>描述</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>model</code></td>
                 <td>string</td>
-                <td>The model ID (e.g., <code>claude-sonnet-4-6</code>)</td>
+                <td>模型 ID（例如 <code>claude-sonnet-4-6</code>）</td>
               </tr>
               <tr>
                 <td><code>messages</code></td>
                 <td>array</td>
-                <td>Array of message objects with <code>role</code> and <code>content</code></td>
+                <td>包含 <code>role</code> 和 <code>content</code> 的消息对象数组</td>
               </tr>
               <tr>
                 <td><code>max_tokens</code></td>
                 <td>integer</td>
-                <td>Maximum tokens in the response</td>
+                <td>响应中的最大令牌数</td>
               </tr>
               <tr>
                 <td><code>system</code></td>
                 <td>string</td>
-                <td>System prompt for context</td>
+                <td>用于上下文的系统提示</td>
               </tr>
               <tr>
                 <td><code>temperature</code></td>
                 <td>float</td>
-                <td>Sampling temperature (0.0 - 1.0)</td>
+                <td>采样温度（0.0 - 1.0）</td>
               </tr>
               <tr>
                 <td><code>stream</code></td>
                 <td>boolean</td>
-                <td>Enable streaming response</td>
+                <td>启用流式响应</td>
               </tr>
             </tbody>
           </table>
@@ -1371,49 +1371,49 @@ console.log(response.content[0].text);</code></pre>
       <!-- ============== HERMES ============== -->
       <section id="hermes" class="doc-section">
         <h1>Hermes Agent</h1>
-        <p class="subtitle">Nous Research's open-source, self-improving AI agent — flexible, provider-agnostic, and extensible.</p>
+        <p class="subtitle">Nous Research 的开源、自我改进 AI 代理 — 灵活、提供商无关且可扩展。</p>
 
         <section id="hermes-quickstart">
-          <h2>Quickstart</h2>
+          <h2>快速开始</h2>
           <p>
-            Get Hermes Agent running quickly. Hermes supports a wide range of LLM providers, making it easy to use whatever model you prefer.
+            快速启动 Hermes Agent。Hermes 支持广泛的 LLM 提供商，让您可以轻松使用自己喜欢的模型。
           </p>
 
-          <h3>1. Install Hermes</h3>
+          <h3>1. 安装 Hermes</h3>
           <pre class="language-bash"><code class="language-bash"># Install
 curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash</code></pre>
 
-          <h3>2. Run the setup wizard</h3>
-          <p>The interactive setup wizard will guide you through choosing a provider, setting your API key, and configuring your model:</p>
+          <h3>2. 运行设置向导</h3>
+          <p>交互式设置向导将引导您选择提供商、设置 API 密钥以及配置模型：</p>
           <pre class="language-bash"><code class="language-bash"># Run setup wizard
 hermes setup</code></pre>
 
-          <h3>3. Start chatting</h3>
-          <p>Launch an interactive chat session with your configured model:</p>
+          <h3>3. 开始对话</h3>
+          <p>使用您配置的模型启动交互式聊天会话：</p>
           <pre class="language-bash"><code class="language-bash"># Start chatting
 hermes</code></pre>
 
           <div class="callout">
-            <strong>Provider-agnostic by design:</strong> Hermes supports 20+ providers including Anthropic, OpenAI, DeepSeek, Google Gemini, Ollama, and LM Studio. Switch providers anytime with <code>hermes model</code>.
+            <strong>设计上无供应商依赖：</strong> Hermes 支持 20 多个提供商，包括 Anthropic、OpenAI、DeepSeek、Google Gemini、Ollama 和 LM Studio。随时使用 <code>hermes model</code> 切换提供商。
           </div>
         </section>
 
         <section id="hermes-installation">
-          <h2>Installation</h2>
+          <h2>安装指南</h2>
           <p>
-            Hermes Agent offers multiple installation methods to suit different environments:
+            Hermes Agent 提供多种安装方式，以适应不同的环境：
           </p>
 
           <table>
             <thead>
               <tr>
-                <th>Method</th>
-                <th>Command / Instructions</th>
+                <th>方法</th>
+                <th>命令 / 说明</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Quick Install</td>
+                <td>快速安装</td>
                 <td><code>curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash</code></td>
               </tr>
               <tr>
@@ -1422,7 +1422,7 @@ hermes</code></pre>
               </tr>
               <tr>
                 <td>Railway</td>
-                <td>One-click deploy from railway.com</td>
+                <td>从 railway.com 一键部署</td>
               </tr>
               <tr>
                 <td>Docker</td>
@@ -1432,17 +1432,17 @@ hermes</code></pre>
           </table>
 
           <p>
-            All installation methods provide the same core functionality. The pip installation is recommended for Python developers who want tight integration with existing Python projects.
+            所有安装方式都提供相同的核心功能。对于希望与现有 Python 项目紧密集成的 Python 开发者，建议使用 pip 安装。
           </p>
         </section>
 
         <section id="hermes-configuration">
-          <h2>Configuration</h2>
+          <h2>配置说明</h2>
           <p>
-            Hermes stores its configuration in <code>~/.hermes/config.yaml</code>. The configuration is YAML-based and organized by section.
+            Hermes 将其配置存储在 <code>~/.hermes/config.yaml</code> 中。配置基于 YAML 并按部分组织。
           </p>
 
-          <h3>Config File Structure</h3>
+          <h3>配置文件结构</h3>
           <pre class="language-yaml"><code class="language-yaml"># ~/.hermes/config.yaml
 model:
   provider: "openrouter"
@@ -1459,48 +1459,48 @@ agent:
   max_turns: 50
   temperature: 0.7</code></pre>
 
-          <h3>Configuration Commands</h3>
-          <p>Hermes provides several commands for managing configuration:</p>
+          <h3>配置命令</h3>
+          <p>Hermes 提供多个用于管理配置的命令：</p>
           <table>
             <thead>
               <tr>
-                <th>Command</th>
-                <th>Description</th>
+                <th>命令</th>
+                <th>描述</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>hermes setup</code></td>
-                <td>Interactive wizard for initial setup</td>
+                <td>初始设置的交互式向导</td>
               </tr>
               <tr>
                 <td><code>hermes model</code></td>
-                <td>Quickly switch model and provider</td>
+                <td>快速切换模型和提供商</td>
               </tr>
               <tr>
                 <td><code>hermes config edit</code></td>
-                <td>Open config file in default editor</td>
+                <td>在默认编辑器中打开配置文件</td>
               </tr>
               <tr>
                 <td><code>hermes config set model.provider openrouter</code></td>
-                <td>Set individual config values with dot notation</td>
+                <td>使用点符号设置单个配置值</td>
               </tr>
             </tbody>
           </table>
         </section>
 
         <section id="hermes-providers">
-          <h2>Providers</h2>
+          <h2>提供商</h2>
           <p>
-            Hermes supports over 20 LLM providers, giving you the flexibility to use the best model for your specific use case. Here are the most commonly used providers:
+            Hermes 支持 20 多个 LLM 提供商，为您提供灵活性，以便为您的特定用例使用最佳模型。以下是最常用的提供商：
           </p>
 
           <table>
             <thead>
               <tr>
-                <th>Provider</th>
-                <th>Config Key</th>
-                <th>Auth Method</th>
+                <th>提供商</th>
+                <th>配置键</th>
+                <th>认证方式</th>
               </tr>
             </thead>
             <tbody>
@@ -1537,22 +1537,22 @@ agent:
               <tr>
                 <td>AWS Bedrock</td>
                 <td><code>bedrock</code></td>
-                <td>IAM auth</td>
+                <td>IAM 认证</td>
               </tr>
               <tr>
-                <td>Ollama (local)</td>
+                <td>Ollama（本地）</td>
                 <td><code>ollama</code></td>
                 <td><code>http://localhost:11434</code></td>
               </tr>
               <tr>
-                <td>LM Studio (local)</td>
+                <td>LM Studio（本地）</td>
                 <td><code>lmstudio</code></td>
-                <td>Local endpoint</td>
+                <td>本地端点</td>
               </tr>
             </tbody>
           </table>
 
-          <h3>Provider Configuration Examples</h3>
+          <h3>提供商配置示例</h3>
 
           <p><strong>OpenRouter</strong></p>
           <pre class="language-bash"><code class="language-bash"># OpenRouter
@@ -1564,12 +1564,12 @@ hermes config set model.base_url https://openrouter.ai/api/v1</code></pre>
 hermes config set model.provider deepseek
 hermes config set model.default deepseek-v4-pro</code></pre>
 
-          <p><strong>Ollama (local)</strong></p>
+          <p><strong>Ollama（本地）</strong></p>
           <pre class="language-bash"><code class="language-bash"># Ollama (local)
 hermes config set model.provider ollama
 hermes config set model.base_url http://localhost:11434</code></pre>
 
-          <p><strong>YAML Configuration for a local setup</strong></p>
+          <p><strong>本地设置的 YAML 配置</strong></p>
           <pre class="language-yaml"><code class="language-yaml">model:
   provider: "ollama"
   default: "llama3-70b"
@@ -1582,58 +1582,58 @@ tools:
         </section>
 
         <section id="hermes-cli">
-          <h2>CLI Reference</h2>
+          <h2>CLI 参考</h2>
           <p>
-            Hermes provides a comprehensive command-line interface for managing your agent, configuration, and integrations.
+            Hermes 提供全面的命令行界面，用于管理您的代理、配置和集成。
           </p>
 
           <table>
             <thead>
               <tr>
-                <th>Command</th>
-                <th>Description</th>
+                <th>命令</th>
+                <th>描述</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>hermes</code></td>
-                <td>Start interactive chat session</td>
+                <td>启动交互式聊天会话</td>
               </tr>
               <tr>
                 <td><code>hermes model</code></td>
-                <td>Choose LLM provider and model</td>
+                <td>选择 LLM 提供商和模型</td>
               </tr>
               <tr>
                 <td><code>hermes tools</code></td>
-                <td>Configure enabled tools</td>
+                <td>配置已启用的工具</td>
               </tr>
               <tr>
                 <td><code>hermes setup</code></td>
-                <td>Run full setup wizard</td>
+                <td>运行完整设置向导</td>
               </tr>
               <tr>
                 <td><code>hermes gateway</code></td>
-                <td>Start the messaging gateway</td>
+                <td>启动消息网关</td>
               </tr>
               <tr>
                 <td><code>hermes doctor</code></td>
-                <td>Diagnose configuration issues</td>
+                <td>诊断配置问题</td>
               </tr>
               <tr>
                 <td><code>hermes logs</code></td>
-                <td>View structured log files</td>
+                <td>查看结构化日志文件</td>
               </tr>
               <tr>
                 <td><code>hermes update</code></td>
-                <td>Update to latest version</td>
+                <td>更新到最新版本</td>
               </tr>
               <tr>
                 <td><code>hermes mcp</code></td>
-                <td>Manage MCP servers</td>
+                <td>管理 MCP 服务器</td>
               </tr>
               <tr>
                 <td><code>hermes config set</code></td>
-                <td>Set individual config values</td>
+                <td>设置单个配置值</td>
               </tr>
             </tbody>
           </table>
@@ -1643,9 +1643,9 @@ tools:
       <!-- ======================== Inline Code Examples (shown on tablet/mobile) ======================== -->
       <div class="code-examples-inline">
         <hr>
-        <h2>Code Examples</h2>
+        <h2>代码示例</h2>
 
-        <h3>Claude Code — Install &amp; Authenticate</h3>
+        <h3>Claude Code — 安装与身份验证</h3>
         <pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash
 export ANTHROPIC_API_KEY="sk-ant-..."
 cd my-project
@@ -1697,35 +1697,35 @@ console.log(response.content[0].text);</code></pre>
   default: "anthropic/claude-opus-4.6"
   base_url: "https://openrouter.ai/api/v1"</code></pre>
 
-        <h3>Hermes — Provider Setup</h3>
+        <h3>Hermes — 提供商设置</h3>
         <pre><code class="language-bash">hermes config set model.provider openrouter
 hermes config set model.base_url https://openrouter.ai/api/v1</code></pre>
       </div>
 
       <!-- ======================== Footer (inside main) ======================== -->
       <footer class="footer" style="margin-top: 60px;">
-        <p>&copy; 2026 APIWebSit. All rights reserved. Built with the <a href="https://docs.anthropic.com" target="_blank" rel="noopener">Anthropic API</a> and <a href="https://nousresearch.com" target="_blank" rel="noopener">Nous Research</a>.</p>
-        <p style="margin-top: 4px; font-size: 11px;">Claude Code is a trademark of Anthropic. Hermes Agent is an open-source project by Nous Research.</p>
+        <p>&copy; 2026 APIWebSit. 保留所有权利。基于 <a href="https://docs.anthropic.com" target="_blank" rel="noopener">Anthropic API</a> 和 <a href="https://nousresearch.com" target="_blank" rel="noopener">Nous Research</a> 构建。</p>
+        <p style="margin-top: 4px; font-size: 11px;">Claude Code 是 Anthropic 的商标。Hermes Agent 是 Nous Research 的开源项目。</p>
       </footer>
 
     </main>
 
     <!-- ======================== Right Code Panel ======================== -->
-    <aside class="code-panel" id="codePanel" aria-label="Code examples">
+    <aside class="code-panel" id="codePanel" aria-label="代码示例">
       <div class="code-panel-header">
-        <h3>Code Examples</h3>
+        <h3>代码示例</h3>
       </div>
 
-      <!-- Claude Code Examples -->
+      <!-- Claude Code 示例 -->
       <div class="example-group">
         <div class="example-group-title">Claude Code</div>
-        <div class="example-group-desc">Install and authenticate</div>
+        <div class="example-group-desc">安装与身份验证</div>
         <pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash
 export ANTHROPIC_API_KEY="sk-ant-..."
 cd my-project
 claude</code></pre>
 
-        <div class="example-group-desc">Configuration (settings.json)</div>
+        <div class="example-group-desc">配置（settings.json）</div>
         <pre><code class="language-json">{
   "model": "claude-sonnet-4-6",
   "permissions": {
@@ -1770,10 +1770,10 @@ const response = await client.messages.create({
 console.log(response.content[0].text);</code></pre>
       </div>
 
-      <!-- Hermes Examples -->
+      <!-- Hermes 示例 -->
       <div class="example-group">
         <div class="example-group-title">Hermes Agent</div>
-        <div class="example-group-desc">Install and configure</div>
+        <div class="example-group-desc">安装与配置</div>
         <pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/\
 NousResearch/hermes-agent/main/scripts/\
 install.sh | bash
@@ -1786,13 +1786,13 @@ hermes</code></pre>
   default: "anthropic/claude-opus-4.6"
   base_url: "https://openrouter.ai/api/v1"</code></pre>
 
-        <div class="example-group-desc">Provider setup (OpenRouter)</div>
+        <div class="example-group-desc">提供商设置（OpenRouter）</div>
         <pre><code class="language-bash">hermes config set model.provider \
   openrouter
 hermes config set model.base_url \
   https://openrouter.ai/api/v1</code></pre>
 
-        <div class="example-group-desc">Provider setup (Ollama)</div>
+        <div class="example-group-desc">提供商设置（Ollama）</div>
         <pre><code class="language-bash">hermes config set model.provider ollama
 hermes config set model.base_url \
   http://localhost:11434</code></pre>
@@ -1819,8 +1819,9 @@ hermes config set model.base_url \
         const savedTheme = localStorage.getItem('theme') || 'dark';
 
         html.setAttribute('data-theme', savedTheme);
+        var themeMap = { dark: '深色', light: '浅色' };
         if (themeLabel) {
-          themeLabel.textContent = savedTheme.charAt(0).toUpperCase() + savedTheme.slice(1);
+          themeLabel.textContent = themeMap[savedTheme] || savedTheme;
         }
 
         themeToggle.addEventListener('click', function() {
@@ -1829,7 +1830,7 @@ hermes config set model.base_url \
           html.setAttribute('data-theme', next);
           localStorage.setItem('theme', next);
           if (themeLabel) {
-            themeLabel.textContent = next.charAt(0).toUpperCase() + next.slice(1);
+            themeLabel.textContent = themeMap[next] || next;
           }
         });
       })();
@@ -2070,8 +2071,8 @@ hermes config set model.base_url \
 
           var btn = document.createElement('button');
           btn.className = 'copy-btn';
-          btn.textContent = 'Copy';
-          btn.setAttribute('aria-label', 'Copy code to clipboard');
+          btn.textContent = '复制';
+          btn.setAttribute('aria-label', '复制代码到剪贴板');
 
           btn.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -2080,16 +2081,16 @@ hermes config set model.base_url \
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
               navigator.clipboard.writeText(text).then(function() {
-                btn.textContent = 'Copied!';
+                btn.textContent = '已复制!';
                 btn.classList.add('copied');
                 setTimeout(function() {
-                  btn.textContent = 'Copy';
+                  btn.textContent = '复制';
                   btn.classList.remove('copied');
                 }, 2000);
               }).catch(function() {
-                btn.textContent = 'Failed';
+                btn.textContent = '失败';
                 setTimeout(function() {
-                  btn.textContent = 'Copy';
+                  btn.textContent = '复制';
                 }, 2000);
               });
             } else {
@@ -2102,16 +2103,16 @@ hermes config set model.base_url \
               ta.select();
               try {
                 document.execCommand('copy');
-                btn.textContent = 'Copied!';
+                btn.textContent = '已复制!';
                 btn.classList.add('copied');
                 setTimeout(function() {
-                  btn.textContent = 'Copy';
+                  btn.textContent = '复制';
                   btn.classList.remove('copied');
                 }, 2000);
               } catch (err) {
-                btn.textContent = 'Failed';
+                btn.textContent = '失败';
                 setTimeout(function() {
-                  btn.textContent = 'Copy';
+                  btn.textContent = '复制';
                 }, 2000);
               }
               document.body.removeChild(ta);
