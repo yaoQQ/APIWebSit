@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI API Documentation — APIWebSit</title>
+  <style>
+    /* ============================================================
+       CSS Custom Properties & Theme
+       ============================================================ */
+    :root, [data-theme="dark"] {
+      --bg-primary: #0a0a0b;
+      --bg-secondary: #141416;
+      --bg-tertiary: #1c1c1f;
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --accent: #635BFF;
+      --accent-hover: #7c75ff;
+      --accent-subtle: rgba(99, 91, 255, 0.1);
+      --border: #2a2a2e;
+      --code-bg: #1c1c1f;
+      --sidebar-width: 260px;
+      --code-panel-width: 340px;
+      --top-nav-height: 48px;
+      --scrollbar-bg: #1c1c1f;
+      --scrollbar-thumb: #3a3a3e;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f6f7;
+      --bg-tertiary: #eeeef0;
+      --text-primary: #1a1a2e;
+      --text-secondary: #6b7280;
+      --accent: #635BFF;
+      --accent-hover: #5551d9;
+      --accent-subtle: rgba(99, 91, 255, 0.08);
+      --border: #e5e7eb;
+      --code-bg: #f6f6f7;
+      --scrollbar-bg: #f0f0f0;
+      --scrollbar-thumb: #cccccc;
+    }
+
+    /* Syntax highlighting — Dark (Dracula-inspired) */
+    .hl-keyword   { color: #ff79c6; }
+    .hl-string    { color: #f1fa8c; }
+    .hl-number    { color: #bd93f9; }
+    .hl-comment   { color: #6272a4; font-style: italic; }
+    .hl-function  { color: #50fa7b; }
+    .hl-operator  { color: #ff79c6; }
+    .hl-builtin   { color: #8be9fd; }
+    .hl-property  { color: #66d9ef; }
+    .hl-punctuation { color: #f8f8f2; }
+
+    /* Syntax highlighting — Light */
+    [data-theme="light"] .hl-keyword   { color: #d63384; }
+    [data-theme="light"] .hl-string    { color: #198038; }
+    [data-theme="light"] .hl-number    { color: #7c3aed; }
+    [data-theme="light"] .hl-comment   { color: #a0a0a0; font-style: italic; }
+    [data-theme="light"] .hl-function  { color: #0066cc; }
+    [data-theme="light"] .hl-operator  { color: #d63384; }
+    [data-theme="light"] .hl-builtin   { color: #0099b3; }
+    [data-theme="light"] .hl-property  { color: #0099b3; }
+    [data-theme="light"] .hl-punctuation { color: #333333; }
+
+    /* ============================================================
+       Reset & Base
+       ============================================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    pre, code, kbd, samp {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, 'Liberation Mono', Menlo, monospace;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--scrollbar-bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* Focus styles for keyboard navigation */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .copy-btn:focus-visible {
+      opacity: 1;
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ============================================================
+       Top Navigation
+       ============================================================ */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--top-nav-height);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      z-index: 1000;
+      gap: 12px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .top-nav .logo {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      user-select: none;
+    }
+
+    .top-nav .logo-sub {
+      font-weight: 400;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-left: 4px;
+    }
+
+    .sidebar-toggle {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      border-radius: 4px;
+      display: none;
+      transition: color 0.15s;
+    }
+    .sidebar-toggle:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 15px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .theme-toggle:hover {
+      color: var(--text-primary);
+      border-color: var(--accent);
+    }
+
+    .theme-toggle .icon-light { display: none; }
+    .theme-toggle .icon-dark { display: inline; }
+    [data-theme="light"] .theme-toggle .icon-light { display: inline; }
+    [data-theme="light"] .theme-toggle .icon-dark { display: none; }
+
+    .theme-label {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .version {
+      font-size: 11px;
+      color: var(--text-secondary);
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* ============================================================
+       Layout
+       ============================================================ */
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr var(--code-panel-width);
+      min-height: calc(100vh - var(--top-nav-height));
+      margin-top: var(--top-nav-height);
+      transition: grid-template-columns 0.3s ease;
+    }
+
+    .layout.sidebar-hidden {
+      grid-template-columns: 0 1fr var(--code-panel-width);
+    }
+
+    /* ============================================================
+       Sidebar
+       ============================================================ */
+    .sidebar {
+      position: fixed;
+      top: var(--top-nav-height);
+      left: 0;
+      width: var(--sidebar-width);
+      height: calc(100vh - var(--top-nav-height));
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+      z-index: 900;
+      transition: transform 0.3s ease, width 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-header {
+      padding: 0 20px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-list > li {
+      margin-bottom: 2px;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 7px 20px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: var(--accent-subtle);
+    }
+
+    .nav-link.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-subtle);
+    }
+
+    .nav-link-parent {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      opacity: 0.5;
+    }
+
+    .nav-list > li.open > a .nav-chevron {
+      transform: rotate(90deg);
+    }
+
+    .sub-nav {
+      list-style: none;
+      display: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sub-nav.open {
+      display: block;
+    }
+
+    .sub-nav .nav-link {
+      padding: 5px 20px 5px 36px;
+      font-size: 12px;
+      font-weight: 400;
+      border-left-color: transparent;
+    }
+
+    .sub-nav .nav-link.active {
+      border-left-color: var(--accent);
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      overflow: hidden;
+      padding: 0;
+      border-right: none;
+    }
+
+    /* ============================================================
+       Main Content
+       ============================================================ */
+    .content {
+      grid-column: 2;
+      padding: 48px 56px 80px;
+      max-width: 720px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .content h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .content h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 40px 0 12px;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      color: var(--text-primary);
+    }
+
+    .content h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 28px 0 8px;
+      line-height: 1.4;
+      color: var(--text-primary);
+    }
+
+    .content p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .content ul,
+    .content ol {
+      margin: 8px 0 16px 24px;
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    .content li {
+      margin-bottom: 4px;
+      line-height: 1.6;
+    }
+
+    .content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .content a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .content a:hover {
+      text-decoration: underline;
+      color: var(--accent-hover);
+    }
+
+    .content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* Tables */
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 13px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .content thead {
+      background: var(--bg-secondary);
+    }
+
+    .content th {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+    }
+
+    .content td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .content td code,
+    .content th code {
+      font-size: 12px;
+    }
+
+    .content table tr:hover td {
+      background: var(--accent-subtle);
+    }
+
+    /* Inline code */
+    .content p code,
+    .content li code,
+    .content td code {
+      font-size: 0.85em;
+      padding: 2px 6px;
+      background: var(--bg-tertiary);
+      border-radius: 4px;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    /* Code blocks */
+    .content pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 16px 0 24px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.55;
+      position: relative;
+      tab-size: 2;
+    }
+
+    .content pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .code-lang-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      opacity: 0.6;
+      font-weight: 600;
+    }
+
+    /* Copy button */
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease, background 0.15s, color 0.15s;
+      font-family: inherit;
+      line-height: 1.4;
+    }
+
+    .content pre:hover .copy-btn,
+    .code-panel pre:hover .copy-btn {
+      opacity: 1;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .copy-btn.copied {
+      background: #22c55e;
+      color: #fff;
+      border-color: #22c55e;
+      opacity: 1;
+    }
+
+    /* Section anchors for scroll */
+    .doc-section {
+      scroll-margin-top: calc(var(--top-nav-height) + 20px);
+    }
+
+    .doc-section > section {
+      scroll-margin-top: calc(var(--top-nav-height) + 20px);
+    }
+
+    /* Intro / lead paragraph */
+    .lead {
+      font-size: 17px;
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: -16px;
+      margin-bottom: 24px;
+    }
+
+    /* Callout box */
+    .callout {
+      background: var(--accent-subtle);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 16px 0 24px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .callout strong {
+      color: var(--accent);
+    }
+
+    /* Ecosystem comparison */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0 28px;
+    }
+
+    .compare-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .compare-card:hover {
+      border-color: var(--accent);
+    }
+
+    .compare-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 4px;
+      color: var(--text-primary);
+    }
+
+    .compare-card .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: var(--accent-subtle);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .compare-card p {
+      font-size: 13px;
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Inline code examples (shown on tablet/mobile, hidden on desktop) */
+    .code-examples-inline {
+      display: none;
+    }
+
+    /* ============================================================
+       Right Code Panel
+       ============================================================ */
+    .code-panel {
+      position: fixed;
+      top: var(--top-nav-height);
+      right: 0;
+      width: var(--code-panel-width);
+      height: calc(100vh - var(--top-nav-height));
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border);
+      padding: 24px 20px 40px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .code-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .code-panel-header h3 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .code-panel .example-group {
+      margin-bottom: 20px;
+    }
+
+    .code-panel .example-group-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .code-panel .example-group-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .code-panel pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow-x: auto;
+      position: relative;
+      tab-size: 2;
+    }
+
+    .code-panel pre code {
+      background: none;
+      padding: 0;
+      border: none;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    /* ============================================================
+       Footer
+       ============================================================ */
+    .footer {
+      text-align: center;
+      padding: 24px 20px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-secondary);
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 40px;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ============================================================
+       Responsive: Tablet (768-1200px)
+       ============================================================ */
+    @media (max-width: 1200px) {
+      .layout {
+        grid-template-columns: var(--sidebar-width) 1fr;
+      }
+
+      .code-panel {
+        display: none;
+      }
+
+      .content {
+        max-width: 100%;
+        padding: 40px 36px 60px;
+      }
+
+      .code-examples-inline {
+        display: block;
+      }
+    }
+
+    /* ============================================================
+       Responsive: Mobile (<768px)
+       ============================================================ */
+    @media (max-width: 768px) {
+      .top-nav {
+        padding: 0 12px;
+      }
+
+      .sidebar-toggle {
+        display: block;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        width: 280px !important;
+        z-index: 950;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      /* Overlay when sidebar is open on mobile */
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: var(--top-nav-height);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 949;
+      }
+
+      .sidebar-overlay.open {
+        display: block;
+      }
+
+      .content {
+        padding: 24px 16px 40px;
+      }
+
+      .content h1 {
+        font-size: 26px;
+      }
+
+      .content h2 {
+        font-size: 19px;
+      }
+
+      .content h3 {
+        font-size: 16px;
+      }
+
+      .content p,
+      .content li {
+        font-size: 14px;
+      }
+
+      .content pre {
+        font-size: 12px;
+        padding: 14px;
+      }
+
+      .content table {
+        font-size: 12px;
+      }
+
+      .content th,
+      .content td {
+        padding: 7px 10px;
+      }
+
+      .compare-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .theme-label {
+        display: none;
+      }
+    }
+
+    /* Desktop: hide inline code examples */
+    @media (min-width: 1201px) {
+      .code-examples-inline {
+        display: none;
+      }
+
+      .sidebar-toggle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============================================================
+       Top Navigation Bar
+       ============================================================ -->
+  <header class="top-nav" role="banner">
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar navigation">
+      &#9776;
+    </button>
+    <span class="logo">APIWebSit</span>
+    <span class="logo-sub">Docs</span>
+    <div class="nav-right">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <span class="icon-light">&#9728;</span>
+        <span class="icon-dark">&#9790;</span>
+        <span class="theme-label" id="themeLabel">Dark</span>
+      </button>
+      <span class="version">v1.0.0</span>
+    </div>
+  </header>
+
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       Main Layout: Sidebar | Content | Code Panel
+       ============================================================ -->
+  <div class="layout">
+
+    <!-- ======================== Left Sidebar ======================== -->
+    <nav class="sidebar" id="sidebar" aria-label="Documentation navigation">
+      <div class="nav-header">Documentation</div>
+      <ul class="nav-list">
+        <li>
+          <a href="#introduction" class="nav-link nav-link-parent active">
+            Introduction
+            <span class="nav-chevron">&#9654;</span>
+          </a>
+          <ul class="sub-nav open" id="sub-introduction">
+            <li><a href="#overview" class="nav-link">Overview</a></li>
+            <li><a href="#ecosystem" class="nav-link">Ecosystem</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#claude-code" class="nav-link nav-link-parent">
+            Claude Code
+            <span class="nav-chevron">&#9654;</span>
+          </a>
+          <ul class="sub-nav" id="sub-claude-code">
+            <li><a href="#cc-quickstart" class="nav-link">Quickstart</a></li>
+            <li><a href="#cc-installation" class="nav-link">Installation</a></li>
+            <li><a href="#cc-configuration" class="nav-link">Configuration</a></li>
+            <li><a href="#cc-cli" class="nav-link">CLI Reference</a></li>
+            <li><a href="#cc-api" class="nav-link">API Reference</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#hermes" class="nav-link nav-link-parent">
+            Hermes
+            <span class="nav-chevron">&#9654;</span>
+          </a>
+          <ul class="sub-nav" id="sub-hermes">
+            <li><a href="#hermes-quickstart" class="nav-link">Quickstart</a></li>
+            <li><a href="#hermes-installation" class="nav-link">Installation</a></li>
+            <li><a href="#hermes-configuration" class="nav-link">Configuration</a></li>
+            <li><a href="#hermes-providers" class="nav-link">Providers</a></li>
+            <li><a href="#hermes-cli" class="nav-link">CLI Reference</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- ======================== Main Content ======================== -->
+    <main class="content" id="mainContent">
+
+      <!-- ============== INTRODUCTION ============== -->
+      <section id="introduction" class="doc-section">
+        <h1>Introduction</h1>
+
+        <section id="overview">
+          <h2>Platform Overview</h2>
+          <p class="lead">
+            Welcome to <strong>APIWebSit</strong> — your central documentation portal for cutting-edge AI developer tools.
+          </p>
+          <p>
+            This platform provides comprehensive API references, implementation guides, and best practices for two of the most powerful AI development platforms available today: <strong>Claude Code</strong> by Anthropic and <strong>Hermes Agent</strong> by Nous Research.
+          </p>
+          <p>
+            Whether you are building agentic coding workflows, integrating large language models into your application, or exploring the frontier of self-improving AI agents, this documentation will help you get started quickly and use these tools effectively.
+          </p>
+          <div class="callout">
+            <strong>New here?</strong> Start with the Quickstart guides for each platform. They walk you through installation, authentication, and your first interactive session in under five minutes.
+          </div>
+        </section>
+
+        <section id="ecosystem">
+          <h2>Ecosystem</h2>
+          <p>
+            The AI development landscape is evolving rapidly. APIWebSit focuses on two complementary platforms that represent different approaches to AI-assisted development:
+          </p>
+
+          <div class="compare-grid">
+            <div class="compare-card">
+              <span class="badge">Anthropic</span>
+              <h3>Claude Code</h3>
+              <p>
+                Anthropic's agentic CLI tool for AI-assisted software development. Deeply integrated with the Claude API ecosystem, Claude Code operates as an autonomous coding assistant directly in your terminal — reading files, writing code, running commands, and managing complex multi-step development workflows.
+              </p>
+            </div>
+            <div class="compare-card">
+              <span class="badge">Nous Research</span>
+              <h3>Hermes Agent</h3>
+              <p>
+                An open-source, self-improving AI agent framework supporting 400+ models across 20+ providers. Hermes focuses on flexibility and provider-agnostic design, allowing you to switch between Anthropic, OpenAI, DeepSeek, local models, and more with a single configuration change.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            Both platforms support MCP (Model Context Protocol) servers, tool use, and extensible plugin architectures, but they differ in their primary use cases and deployment models:
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Claude Code</th>
+                <th>Hermes Agent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Type</strong></td>
+                <td>Agentic CLI tool</td>
+                <td>Agent framework</td>
+              </tr>
+              <tr>
+                <td><strong>Vendor</strong></td>
+                <td>Anthropic</td>
+                <td>Nous Research (open source)</td>
+              </tr>
+              <tr>
+                <td><strong>Models</strong></td>
+                <td>Claude family only</td>
+                <td>400+ models via 20+ providers</td>
+              </tr>
+              <tr>
+                <td><strong>License</strong></td>
+                <td>Proprietary</td>
+                <td>Apache 2.0 / MIT</td>
+              </tr>
+              <tr>
+                <td><strong>Primary Use</strong></td>
+                <td>AI-assisted coding in terminal</td>
+                <td>General-purpose agent orchestration</td>
+              </tr>
+              <tr>
+                <td><strong>MCP Support</strong></td>
+                <td>&#10003; Built-in</td>
+                <td>&#10003; Built-in</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ============== CLAUDE CODE ============== -->
+      <section id="claude-code" class="doc-section">
+        <h1>Claude Code</h1>
+        <p class="subtitle">Anthropic's agentic coding tool — an AI teammate that lives in your terminal.</p>
+
+        <section id="cc-quickstart">
+          <h2>Quickstart</h2>
+          <p>
+            Get Claude Code running in under two minutes. You'll need a terminal and an <a href="https://console.anthropic.com" target="_blank" rel="noopener">Anthropic API key</a>.
+          </p>
+
+          <h3>1. Install Claude Code</h3>
+          <p>Run the official installer in your terminal:</p>
+          <pre class="language-bash"><code class="language-bash"># Install
+curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+          <h3>2. Set your API key</h3>
+          <p>Claude Code authenticates using the <code>ANTHROPIC_API_KEY</code> environment variable:</p>
+          <pre class="language-bash"><code class="language-bash"># Set API key
+export ANTHROPIC_API_KEY="sk-ant-..."</code></pre>
+
+          <h3>3. Start coding</h3>
+          <p>Navigate to your project directory and launch Claude Code:</p>
+          <pre class="language-bash"><code class="language-bash"># Start coding
+cd my-project
+claude</code></pre>
+
+          <p>
+            That's it. Claude Code will analyze your project structure and present an interactive REPL session. Try asking it to explain a file, write a function, or debug an issue.
+          </p>
+
+          <div class="callout">
+            <strong>Pro tip:</strong> You can also use <code>claude -p "your prompt"</code> for one-shot queries without entering the interactive session — perfect for CI/CD pipelines and quick questions.
+          </div>
+        </section>
+
+        <section id="cc-installation">
+          <h2>Installation</h2>
+          <p>
+            Claude Code supports multiple installation methods across platforms. Choose the one that works best for your environment:
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Platform</th>
+                <th>Command</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>macOS / Linux / WSL</td>
+                <td><code>curl -fsSL https://claude.ai/install.sh | bash</code></td>
+              </tr>
+              <tr>
+                <td>Windows (PowerShell)</td>
+                <td><code>irm https://claude.ai/install.ps1 | iex</code></td>
+              </tr>
+              <tr>
+                <td>macOS (Homebrew)</td>
+                <td><code>brew install --cask claude-code</code></td>
+              </tr>
+              <tr>
+                <td>npm (legacy)</td>
+                <td><code>npm install -g @anthropic-ai/claude-code</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            After installation, verify everything is working by running <code>claude doctor</code>, which performs a diagnostic health check on your environment:
+          </p>
+          <pre class="language-bash"><code class="language-bash">claude doctor</code></pre>
+        </section>
+
+        <section id="cc-configuration">
+          <h2>Configuration</h2>
+          <p>
+            Claude Code uses a layered configuration system. Settings are resolved from highest to lowest priority in the following hierarchy:
+          </p>
+          <ol>
+            <li><strong>Session flags</strong> — CLI arguments like <code>--model</code> and <code>--allowedTools</code></li>
+            <li><strong>Project-level settings</strong> — <code>.claude/settings.json</code> in the current project</li>
+            <li><strong>Home directory settings</strong> — <code>~/.claude/settings.json</code></li>
+            <li><strong>Global configuration</strong> — set via <code>claude config set -g</code></li>
+            <li><strong>Defaults</strong> — built-in Claude Code defaults</li>
+          </ol>
+
+          <p>
+            Here is an example project-level <code>settings.json</code>:
+          </p>
+          <pre class="language-json"><code class="language-json">{
+  "model": "claude-sonnet-4-6",
+  "permissions": {
+    "allowedTools": ["Read", "Write", "Bash(*)"]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write(*.py)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -m black $file"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+          <h3>Environment Variables</h3>
+          <p>Key environment variables for configuring Claude Code behavior:</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>ANTHROPIC_API_KEY</code></td>
+                <td>API key for authentication</td>
+              </tr>
+              <tr>
+                <td><code>ANTHROPIC_BASE_URL</code></td>
+                <td>Custom API base URL</td>
+              </tr>
+              <tr>
+                <td><code>ANTHROPIC_MODEL</code></td>
+                <td>Default model override</td>
+              </tr>
+              <tr>
+                <td><code>CLAUDE_CODE_USE_BEDROCK=1</code></td>
+                <td>Use Amazon Bedrock as backend</td>
+              </tr>
+              <tr>
+                <td><code>CLAUDE_CODE_USE_VERTEX=1</code></td>
+                <td>Use Google Vertex AI as backend</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="cc-cli">
+          <h2>CLI Reference</h2>
+          <p>
+            Claude Code provides a rich set of commands, flags, and in-session slash commands for controlling its behavior.
+          </p>
+
+          <h3>Commands</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Command</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>claude</code></td>
+                <td>Start interactive REPL session</td>
+              </tr>
+              <tr>
+                <td><code>claude -p "prompt"</code></td>
+                <td>Print mode — query once and exit</td>
+              </tr>
+              <tr>
+                <td><code>claude -c</code></td>
+                <td>Continue most recent conversation</td>
+              </tr>
+              <tr>
+                <td><code>claude doctor</code></td>
+                <td>Diagnostic health check</td>
+              </tr>
+              <tr>
+                <td><code>claude update</code></td>
+                <td>Update to latest version</td>
+              </tr>
+              <tr>
+                <td><code>claude config set -g key value</code></td>
+                <td>Configure global settings</td>
+              </tr>
+              <tr>
+                <td><code>claude mcp list</code></td>
+                <td>List configured MCP servers</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>CLI Flags</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Flag</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--model</code></td>
+                <td>Specify the Claude model to use</td>
+              </tr>
+              <tr>
+                <td><code>--allowedTools</code></td>
+                <td>Comma-separated list of allowed tools</td>
+              </tr>
+              <tr>
+                <td><code>--disallowedTools</code></td>
+                <td>Comma-separated list of disallowed tools</td>
+              </tr>
+              <tr>
+                <td><code>--max-turns</code></td>
+                <td>Maximum conversation turns before pausing</td>
+              </tr>
+              <tr>
+                <td><code>--output-format</code></td>
+                <td>Output format (text, json, jsonl)</td>
+              </tr>
+              <tr>
+                <td><code>--verbose</code></td>
+                <td>Enable verbose logging</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Slash Commands</h3>
+          <p>
+            The following slash commands are available during interactive sessions:
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Command</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>/help</code></td><td>Show help information</td></tr>
+              <tr><td><code>/config</code></td><td>View and edit configuration</td></tr>
+              <tr><td><code>/model</code></td><td>Switch the active model</td></tr>
+              <tr><td><code>/agents</code></td><td>Manage agent configurations</td></tr>
+              <tr><td><code>/mcp</code></td><td>Manage MCP server connections</td></tr>
+              <tr><td><code>/fast</code></td><td>Enable fast mode (reduced verbosity)</td></tr>
+              <tr><td><code>/compact</code></td><td>Compact the conversation context</td></tr>
+              <tr><td><code>/clear</code></td><td>Clear the conversation history</td></tr>
+              <tr><td><code>/plan</code></td><td>Generate an implementation plan</td></tr>
+              <tr><td><code>/review</code></td><td>Review current changes</td></tr>
+              <tr><td><code>/cost</code></td><td>Show estimated API usage cost</td></tr>
+              <tr><td><code>/export</code></td><td>Export the conversation</td></tr>
+              <tr><td><code>/memory</code></td><td>Manage Claude's memory</td></tr>
+              <tr><td><code>/sandbox</code></td><td>Configure sandbox settings</td></tr>
+              <tr><td><code>/stats</code></td><td>Show usage statistics</td></tr>
+              <tr><td><code>/exit</code></td><td>Exit the session</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="cc-api">
+          <h2>API Reference</h2>
+          <p>
+            Claude Code is built on the <a href="https://docs.anthropic.com/en/api" target="_blank" rel="noopener">Anthropic Messages API</a>. You can integrate directly with the API to build custom tooling and workflows around Claude.
+          </p>
+
+          <h3>Messages API</h3>
+          <p>
+            The Messages API allows you to send conversations to Claude and receive streaming or non-streaming responses. Here are examples in Python and JavaScript:
+          </p>
+
+          <h4>Python (using the Anthropic SDK)</h4>
+          <pre class="language-python"><code class="language-python">import anthropic
+
+client = anthropic.Anthropic(
+    api_key="sk-ant-..."
+)
+
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Hello, Claude!"}]
+)
+
+print(response.content[0].text)</code></pre>
+
+          <h4>JavaScript / TypeScript (using the Anthropic SDK)</h4>
+          <pre class="language-javascript"><code class="language-javascript">import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: 'sk-ant-...'
+});
+
+const response = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello, Claude!' }]
+});
+
+console.log(response.content[0].text);</code></pre>
+
+          <h3>Key Parameters</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>model</code></td>
+                <td>string</td>
+                <td>The model ID (e.g., <code>claude-sonnet-4-6</code>)</td>
+              </tr>
+              <tr>
+                <td><code>messages</code></td>
+                <td>array</td>
+                <td>Array of message objects with <code>role</code> and <code>content</code></td>
+              </tr>
+              <tr>
+                <td><code>max_tokens</code></td>
+                <td>integer</td>
+                <td>Maximum tokens in the response</td>
+              </tr>
+              <tr>
+                <td><code>system</code></td>
+                <td>string</td>
+                <td>System prompt for context</td>
+              </tr>
+              <tr>
+                <td><code>temperature</code></td>
+                <td>float</td>
+                <td>Sampling temperature (0.0 - 1.0)</td>
+              </tr>
+              <tr>
+                <td><code>stream</code></td>
+                <td>boolean</td>
+                <td>Enable streaming response</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ============== HERMES ============== -->
+      <section id="hermes" class="doc-section">
+        <h1>Hermes Agent</h1>
+        <p class="subtitle">Nous Research's open-source, self-improving AI agent — flexible, provider-agnostic, and extensible.</p>
+
+        <section id="hermes-quickstart">
+          <h2>Quickstart</h2>
+          <p>
+            Get Hermes Agent running quickly. Hermes supports a wide range of LLM providers, making it easy to use whatever model you prefer.
+          </p>
+
+          <h3>1. Install Hermes</h3>
+          <pre class="language-bash"><code class="language-bash"># Install
+curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash</code></pre>
+
+          <h3>2. Run the setup wizard</h3>
+          <p>The interactive setup wizard will guide you through choosing a provider, setting your API key, and configuring your model:</p>
+          <pre class="language-bash"><code class="language-bash"># Run setup wizard
+hermes setup</code></pre>
+
+          <h3>3. Start chatting</h3>
+          <p>Launch an interactive chat session with your configured model:</p>
+          <pre class="language-bash"><code class="language-bash"># Start chatting
+hermes</code></pre>
+
+          <div class="callout">
+            <strong>Provider-agnostic by design:</strong> Hermes supports 20+ providers including Anthropic, OpenAI, DeepSeek, Google Gemini, Ollama, and LM Studio. Switch providers anytime with <code>hermes model</code>.
+          </div>
+        </section>
+
+        <section id="hermes-installation">
+          <h2>Installation</h2>
+          <p>
+            Hermes Agent offers multiple installation methods to suit different environments:
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Command / Instructions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Quick Install</td>
+                <td><code>curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash</code></td>
+              </tr>
+              <tr>
+                <td>pip</td>
+                <td><code>pip install hermes-agent</code></td>
+              </tr>
+              <tr>
+                <td>Railway</td>
+                <td>One-click deploy from railway.com</td>
+              </tr>
+              <tr>
+                <td>Docker</td>
+                <td><code>docker pull nousresearch/hermes-agent</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            All installation methods provide the same core functionality. The pip installation is recommended for Python developers who want tight integration with existing Python projects.
+          </p>
+        </section>
+
+        <section id="hermes-configuration">
+          <h2>Configuration</h2>
+          <p>
+            Hermes stores its configuration in <code>~/.hermes/config.yaml</code>. The configuration is YAML-based and organized by section.
+          </p>
+
+          <h3>Config File Structure</h3>
+          <pre class="language-yaml"><code class="language-yaml"># ~/.hermes/config.yaml
+model:
+  provider: "openrouter"
+  default: "anthropic/claude-opus-4.6"
+  base_url: "https://openrouter.ai/api/v1"
+
+tools:
+  enabled:
+    - web_search
+    - code_interpreter
+    - file_system
+
+agent:
+  max_turns: 50
+  temperature: 0.7</code></pre>
+
+          <h3>Configuration Commands</h3>
+          <p>Hermes provides several commands for managing configuration:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Command</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>hermes setup</code></td>
+                <td>Interactive wizard for initial setup</td>
+              </tr>
+              <tr>
+                <td><code>hermes model</code></td>
+                <td>Quickly switch model and provider</td>
+              </tr>
+              <tr>
+                <td><code>hermes config edit</code></td>
+                <td>Open config file in default editor</td>
+              </tr>
+              <tr>
+                <td><code>hermes config set model.provider openrouter</code></td>
+                <td>Set individual config values with dot notation</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="hermes-providers">
+          <h2>Providers</h2>
+          <p>
+            Hermes supports over 20 LLM providers, giving you the flexibility to use the best model for your specific use case. Here are the most commonly used providers:
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Config Key</th>
+                <th>Auth Method</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nous Portal</td>
+                <td><code>nous</code></td>
+                <td><code>NOUS_API_KEY</code></td>
+              </tr>
+              <tr>
+                <td>OpenRouter</td>
+                <td><code>openrouter</code></td>
+                <td><code>OPENROUTER_API_KEY</code></td>
+              </tr>
+              <tr>
+                <td>Anthropic</td>
+                <td><code>anthropic</code></td>
+                <td><code>ANTHROPIC_API_KEY</code></td>
+              </tr>
+              <tr>
+                <td>OpenAI</td>
+                <td><code>openai</code></td>
+                <td><code>OPENAI_API_KEY</code></td>
+              </tr>
+              <tr>
+                <td>DeepSeek</td>
+                <td><code>deepseek</code></td>
+                <td><code>DEEPSEEK_API_KEY</code></td>
+              </tr>
+              <tr>
+                <td>Google Gemini</td>
+                <td><code>gemini</code></td>
+                <td><code>GOOGLE_API_KEY</code></td>
+              </tr>
+              <tr>
+                <td>AWS Bedrock</td>
+                <td><code>bedrock</code></td>
+                <td>IAM auth</td>
+              </tr>
+              <tr>
+                <td>Ollama (local)</td>
+                <td><code>ollama</code></td>
+                <td><code>http://localhost:11434</code></td>
+              </tr>
+              <tr>
+                <td>LM Studio (local)</td>
+                <td><code>lmstudio</code></td>
+                <td>Local endpoint</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Provider Configuration Examples</h3>
+
+          <p><strong>OpenRouter</strong></p>
+          <pre class="language-bash"><code class="language-bash"># OpenRouter
+hermes config set model.provider openrouter
+hermes config set model.base_url https://openrouter.ai/api/v1</code></pre>
+
+          <p><strong>DeepSeek</strong></p>
+          <pre class="language-bash"><code class="language-bash"># DeepSeek
+hermes config set model.provider deepseek
+hermes config set model.default deepseek-v4-pro</code></pre>
+
+          <p><strong>Ollama (local)</strong></p>
+          <pre class="language-bash"><code class="language-bash"># Ollama (local)
+hermes config set model.provider ollama
+hermes config set model.base_url http://localhost:11434</code></pre>
+
+          <p><strong>YAML Configuration for a local setup</strong></p>
+          <pre class="language-yaml"><code class="language-yaml">model:
+  provider: "ollama"
+  default: "llama3-70b"
+  base_url: "http://localhost:11434"
+
+tools:
+  enabled:
+    - code_interpreter
+    - web_search</code></pre>
+        </section>
+
+        <section id="hermes-cli">
+          <h2>CLI Reference</h2>
+          <p>
+            Hermes provides a comprehensive command-line interface for managing your agent, configuration, and integrations.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Command</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>hermes</code></td>
+                <td>Start interactive chat session</td>
+              </tr>
+              <tr>
+                <td><code>hermes model</code></td>
+                <td>Choose LLM provider and model</td>
+              </tr>
+              <tr>
+                <td><code>hermes tools</code></td>
+                <td>Configure enabled tools</td>
+              </tr>
+              <tr>
+                <td><code>hermes setup</code></td>
+                <td>Run full setup wizard</td>
+              </tr>
+              <tr>
+                <td><code>hermes gateway</code></td>
+                <td>Start the messaging gateway</td>
+              </tr>
+              <tr>
+                <td><code>hermes doctor</code></td>
+                <td>Diagnose configuration issues</td>
+              </tr>
+              <tr>
+                <td><code>hermes logs</code></td>
+                <td>View structured log files</td>
+              </tr>
+              <tr>
+                <td><code>hermes update</code></td>
+                <td>Update to latest version</td>
+              </tr>
+              <tr>
+                <td><code>hermes mcp</code></td>
+                <td>Manage MCP servers</td>
+              </tr>
+              <tr>
+                <td><code>hermes config set</code></td>
+                <td>Set individual config values</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ======================== Inline Code Examples (shown on tablet/mobile) ======================== -->
+      <div class="code-examples-inline">
+        <hr>
+        <h2>Code Examples</h2>
+
+        <h3>Claude Code — Install &amp; Authenticate</h3>
+        <pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+cd my-project
+claude</code></pre>
+
+        <h3>Claude Code — settings.json</h3>
+        <pre><code class="language-json">{
+  "model": "claude-sonnet-4-6",
+  "permissions": {
+    "allowedTools": ["Read", "Write", "Bash(*)"]
+  }
+}</code></pre>
+
+        <h3>Python SDK</h3>
+        <pre><code class="language-python">import anthropic
+
+client = anthropic.Anthropic(
+    api_key="sk-ant-..."
+)
+
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{
+        "role": "user",
+        "content": "Hello!"
+    }]
+)
+print(response.content[0].text)</code></pre>
+
+        <h3>JavaScript SDK</h3>
+        <pre><code class="language-javascript">import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: 'sk-ant-...'
+});
+
+const response = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello!' }]
+});
+
+console.log(response.content[0].text);</code></pre>
+
+        <h3>Hermes Agent — config.yaml</h3>
+        <pre><code class="language-yaml">model:
+  provider: "openrouter"
+  default: "anthropic/claude-opus-4.6"
+  base_url: "https://openrouter.ai/api/v1"</code></pre>
+
+        <h3>Hermes — Provider Setup</h3>
+        <pre><code class="language-bash">hermes config set model.provider openrouter
+hermes config set model.base_url https://openrouter.ai/api/v1</code></pre>
+      </div>
+
+      <!-- ======================== Footer (inside main) ======================== -->
+      <footer class="footer" style="margin-top: 60px;">
+        <p>&copy; 2026 APIWebSit. All rights reserved. Built with the <a href="https://docs.anthropic.com" target="_blank" rel="noopener">Anthropic API</a> and <a href="https://nousresearch.com" target="_blank" rel="noopener">Nous Research</a>.</p>
+        <p style="margin-top: 4px; font-size: 11px;">Claude Code is a trademark of Anthropic. Hermes Agent is an open-source project by Nous Research.</p>
+      </footer>
+
+    </main>
+
+    <!-- ======================== Right Code Panel ======================== -->
+    <aside class="code-panel" id="codePanel" aria-label="Code examples">
+      <div class="code-panel-header">
+        <h3>Code Examples</h3>
+      </div>
+
+      <!-- Claude Code Examples -->
+      <div class="example-group">
+        <div class="example-group-title">Claude Code</div>
+        <div class="example-group-desc">Install and authenticate</div>
+        <pre><code class="language-bash">curl -fsSL https://claude.ai/install.sh | bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+cd my-project
+claude</code></pre>
+
+        <div class="example-group-desc">Configuration (settings.json)</div>
+        <pre><code class="language-json">{
+  "model": "claude-sonnet-4-6",
+  "permissions": {
+    "allowedTools": [
+      "Read",
+      "Write",
+      "Bash(*)"
+    ]
+  }
+}</code></pre>
+
+        <div class="example-group-desc">Python SDK</div>
+        <pre><code class="language-python">import anthropic
+
+client = anthropic.Anthropic(
+    api_key="sk-ant-..."
+)
+
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{
+        "role": "user",
+        "content": "Hello!"
+    }]
+)
+print(response.content[0].text)</code></pre>
+
+        <div class="example-group-desc">JavaScript SDK</div>
+        <pre><code class="language-javascript">import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: 'sk-ant-...'
+});
+
+const response = await client.messages.create({
+  model: 'claude-sonnet-4-6',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Hello!' }]
+});
+
+console.log(response.content[0].text);</code></pre>
+      </div>
+
+      <!-- Hermes Examples -->
+      <div class="example-group">
+        <div class="example-group-title">Hermes Agent</div>
+        <div class="example-group-desc">Install and configure</div>
+        <pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/\
+NousResearch/hermes-agent/main/scripts/\
+install.sh | bash
+hermes setup
+hermes</code></pre>
+
+        <div class="example-group-desc">config.yaml</div>
+        <pre><code class="language-yaml">model:
+  provider: "openrouter"
+  default: "anthropic/claude-opus-4.6"
+  base_url: "https://openrouter.ai/api/v1"</code></pre>
+
+        <div class="example-group-desc">Provider setup (OpenRouter)</div>
+        <pre><code class="language-bash">hermes config set model.provider \
+  openrouter
+hermes config set model.base_url \
+  https://openrouter.ai/api/v1</code></pre>
+
+        <div class="example-group-desc">Provider setup (Ollama)</div>
+        <pre><code class="language-bash">hermes config set model.provider ollama
+hermes config set model.base_url \
+  http://localhost:11434</code></pre>
+      </div>
+    </aside>
+
+  </div>
+  <!-- /.layout -->
+
+  <!-- ============================================================
+       JavaScript
+       ============================================================ -->
+  <script>
+    (function() {
+      'use strict';
+
+      /* ==========================================================
+         1. Theme Toggle
+         ========================================================== */
+      (function initTheme() {
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeLabel = document.getElementById('themeLabel');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+
+        html.setAttribute('data-theme', savedTheme);
+        if (themeLabel) {
+          themeLabel.textContent = savedTheme.charAt(0).toUpperCase() + savedTheme.slice(1);
+        }
+
+        themeToggle.addEventListener('click', function() {
+          const current = html.getAttribute('data-theme');
+          const next = current === 'dark' ? 'light' : 'dark';
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          if (themeLabel) {
+            themeLabel.textContent = next.charAt(0).toUpperCase() + next.slice(1);
+          }
+        });
+      })();
+
+      /* ==========================================================
+         2. Collapsible Sub-navigation
+         ========================================================== */
+      (function initCollapsibleNav() {
+        var topLevelLinks = document.querySelectorAll('.nav-list > li > a.nav-link-parent');
+
+        topLevelLinks.forEach(function(link) {
+          var parentLi = link.parentElement;
+          var sub = parentLi.querySelector('.sub-nav');
+
+          if (!sub) return;
+
+          // Set initial aria-expanded
+          link.setAttribute('aria-expanded', sub.classList.contains('open') ? 'true' : 'false');
+
+          link.addEventListener('click', function(e) {
+            // Don't prevent default if clicking sub-item
+            e.preventDefault();
+
+            var isOpen = sub.classList.contains('open');
+
+            // Toggle this sub-nav
+            if (isOpen) {
+              sub.classList.remove('open');
+              parentLi.classList.remove('open');
+              link.setAttribute('aria-expanded', 'false');
+            } else {
+              sub.classList.add('open');
+              parentLi.classList.add('open');
+              link.setAttribute('aria-expanded', 'true');
+              // Smooth-scroll to the section
+              var href = link.getAttribute('href');
+              if (href) {
+                var target = document.querySelector(href);
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth' });
+                  history.pushState(null, '', href);
+                }
+              }
+            }
+          });
+        });
+
+        // Auto-open subsections based on URL hash on page load
+        (function autoOpenFromHash() {
+          var hash = window.location.hash;
+          if (!hash) return;
+
+          var target = document.querySelector(hash);
+          if (!target) return;
+
+          // Find the parent section and open its sub-nav
+          var section = target.closest('.doc-section');
+          if (section) {
+            var sectionId = section.id;
+            var parentLinks = document.querySelectorAll('.nav-list > li > a.nav-link-parent');
+            parentLinks.forEach(function(link) {
+              var href = link.getAttribute('href');
+              if (href === '#' + sectionId) {
+                var parentLi = link.parentElement;
+                var sub = parentLi.querySelector('.sub-nav');
+                if (sub) {
+                  sub.classList.add('open');
+                  parentLi.classList.add('open');
+                  link.setAttribute('aria-expanded', 'true');
+                }
+              }
+            });
+
+            // Highlight the exact sub-link
+            var exactLink = document.querySelector('.sub-nav a[href="' + hash + '"]');
+            if (exactLink) {
+              document.querySelectorAll('.nav-link').forEach(function(l) { l.classList.remove('active'); });
+              exactLink.classList.add('active');
+              // Also highlight parent
+              if (exactLink.closest('.nav-list > li')) {
+                var parentLink = exactLink.closest('.nav-list > li').querySelector('> a');
+                if (parentLink) parentLink.classList.add('active');
+              }
+            }
+          }
+        })();
+      })();
+
+      /* ==========================================================
+         3. IntersectionObserver — Active Nav Highlighting
+         ========================================================== */
+      (function initIntersectionObserver() {
+        var sections = document.querySelectorAll('.doc-section');
+        var navLinks = document.querySelectorAll('.nav-link');
+
+        if (!('IntersectionObserver' in window)) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.id;
+
+              navLinks.forEach(function(link) {
+                var href = link.getAttribute('href');
+                if (href === '#' + id) {
+                  link.classList.add('active');
+                } else {
+                  link.classList.remove('active');
+                }
+              });
+
+              // Also highlight parent nav-link when a sub-section is active
+              var activeSub = document.querySelector('.sub-nav .nav-link.active');
+              if (activeSub) {
+                var parentLi = activeSub.closest('.nav-list > li');
+                if (parentLi) {
+                  var parentLink = parentLi.querySelector('> a.nav-link-parent');
+                  if (parentLink) parentLink.classList.add('active');
+                }
+              }
+            }
+          });
+        }, {
+          rootMargin: '-80px 0px -60% 0px',
+          threshold: 0
+        });
+
+        sections.forEach(function(s) {
+          observer.observe(s);
+        });
+      })();
+
+      /* ==========================================================
+         4. Syntax Highlighter
+         ========================================================== */
+      (function initSyntaxHighlighting() {
+        function escapeHtml(str) {
+          var div = document.createElement('div');
+          div.appendChild(document.createTextNode(str));
+          return div.innerHTML;
+        }
+
+        function highlightCode(code, lang) {
+          var escaped = escapeHtml(code);
+
+          var patterns = {
+            bash: [
+              { pattern: /(# .*)/g,            class: 'hl-comment' },
+              { pattern: /\b(export|echo|cd|curl|npm|brew|pip|docker|git|source|alias|sudo|yay|hermes|claude|bash|iex|irm|install)\b/g, class: 'hl-builtin' },
+              { pattern: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, class: 'hl-string' },
+              { pattern: /(\$[A-Z_]+)/g,       class: 'hl-keyword' },
+              { pattern: /\b(-?\d+(?:\.\d+)?)\b/g, class: 'hl-number' },
+              { pattern: /(https?:\/\/[^\s]+)/g, class: 'hl-function' },
+            ],
+            json: [
+              { pattern: /("(?:[^"\\]|\\.)*")\s*:/g, class: 'hl-property' },
+              { pattern: /:(\s*)("(?:[^"\\]|\\.)*")/g, class: 'hl-string' },
+              { pattern: /\b(-?\d+(?:\.\d+)?)\b/g,   class: 'hl-number' },
+              { pattern: /\b(true|false|null)\b/g,    class: 'hl-keyword' },
+            ],
+            yaml: [
+              { pattern: /(# .*)/g,                  class: 'hl-comment' },
+              { pattern: /^(\s*[\w-]+)(?=:)/gm,       class: 'hl-property' },
+              { pattern: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, class: 'hl-string' },
+              { pattern: /\b(true|false|null|yes|no)\b/g, class: 'hl-keyword' },
+              { pattern: /\b(-?\d+(?:\.\d+)?)\b/g,    class: 'hl-number' },
+            ],
+            python: [
+              { pattern: /(# .*|"""(?:[^"]|"(?!""))*(?:"""|$))/g, class: 'hl-comment' },
+              { pattern: /\b(import|from|def|class|return|if|elif|else|for|while|in|not|and|or|as|with|try|except|raise|print|async|await|True|False|None)\b/g, class: 'hl-keyword' },
+              { pattern: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, class: 'hl-string' },
+              { pattern: /\b(-?\d+(?:\.\d+)?)\b/g,     class: 'hl-number' },
+              { pattern: /(\b[A-Za-z_]\w*)\s*\(/g,    class: 'hl-function' },
+            ],
+            javascript: [
+              { pattern: /(\/\/.*|\/\*[\s\S]*?\*\/)/g, class: 'hl-comment' },
+              { pattern: /\b(import|from|export|const|let|var|function|return|if|else|for|of|in|async|await|new|try|catch|throw|class|extends|true|false|null|undefined)\b/g, class: 'hl-keyword' },
+              { pattern: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)/g, class: 'hl-string' },
+              { pattern: /\b(-?\d+(?:\.\d+)?)\b/g,     class: 'hl-number' },
+              { pattern: /(\b[A-Za-z_]\w*)\s*\(/g,    class: 'hl-function' },
+            ]
+          };
+
+          var rules = patterns[lang] || patterns.bash;
+
+          // Sort rules by pattern length to apply more specific patterns first
+          // Actually, we need to apply them sequentially and avoid double-wrapping
+          // To avoid double-wrapping, we process in a specific way:
+          // We'll wrap in a temporary container, apply patterns one at a time
+          // but only to non-wrapped text nodes using a marker approach.
+
+          // Simpler approach: use a marker to avoid re-processing
+          var marker = '%%HL_MARKER_%%';
+          var result = escaped;
+
+          for (var r = 0; r < rules.length; r++) {
+            var rule = rules[r];
+            result = result.replace(rule.pattern, function(match) {
+              return marker + '|' + rule.class + '|' + match + marker;
+            });
+          }
+
+          // Restore: replace markers with actual spans, and any remaining unmarked text
+          result = result.replace(new RegExp(marker + '\\|([^|]+)\\|([\\s\\S]+?)' + marker, 'g'), function(match, cls, content) {
+            return '<span class="' + cls + '">' + content + '</span>';
+          });
+
+          return result;
+        }
+
+        // Apply highlighting to all code blocks
+        var codeBlocks = document.querySelectorAll('pre code[class*="language-"]');
+        codeBlocks.forEach(function(block) {
+          var classes = block.className;
+          var langMatch = classes.match(/language-(\w+)/);
+          if (!langMatch) return;
+
+          var lang = langMatch[1];
+          var code = block.textContent || block.innerText;
+
+          // Skip if already highlighted
+          if (block.dataset.highlighted === 'true') return;
+
+          block.innerHTML = highlightCode(code, lang);
+          block.dataset.highlighted = 'true';
+        });
+      })();
+
+      /* ==========================================================
+         5. Copy Buttons
+         ========================================================== */
+      (function initCopyButtons() {
+        var pres = document.querySelectorAll('.content pre, .code-panel pre');
+
+        pres.forEach(function(pre) {
+          // Skip if it already has a copy button
+          if (pre.querySelector('.copy-btn')) return;
+
+          var btn = document.createElement('button');
+          btn.className = 'copy-btn';
+          btn.textContent = 'Copy';
+          btn.setAttribute('aria-label', 'Copy code to clipboard');
+
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var code = pre.querySelector('code');
+            var text = code ? (code.textContent || code.innerText) : (pre.textContent || pre.innerText);
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).then(function() {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                  btn.textContent = 'Copy';
+                  btn.classList.remove('copied');
+                }, 2000);
+              }).catch(function() {
+                btn.textContent = 'Failed';
+                setTimeout(function() {
+                  btn.textContent = 'Copy';
+                }, 2000);
+              });
+            } else {
+              // Fallback
+              var ta = document.createElement('textarea');
+              ta.value = text;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              try {
+                document.execCommand('copy');
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                  btn.textContent = 'Copy';
+                  btn.classList.remove('copied');
+                }, 2000);
+              } catch (err) {
+                btn.textContent = 'Failed';
+                setTimeout(function() {
+                  btn.textContent = 'Copy';
+                }, 2000);
+              }
+              document.body.removeChild(ta);
+            }
+          });
+
+          pre.appendChild(btn);
+        });
+      })();
+
+      /* ==========================================================
+         6. Smooth Scroll for All Anchor Links
+         ========================================================== */
+      (function initSmoothScroll() {
+        var anchors = document.querySelectorAll('a[href^="#"]');
+        anchors.forEach(function(anchor) {
+          anchor.addEventListener('click', function(e) {
+            // Skip parent nav links — handled by collapsible nav
+            if (anchor.classList.contains('nav-link-parent')) return;
+
+            var href = this.getAttribute('href');
+            if (href === '#') return;
+
+            var target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth' });
+              history.pushState(null, '', href);
+
+              // Close sidebar on mobile if open
+              var sidebar = document.getElementById('sidebar');
+              var overlay = document.getElementById('sidebarOverlay');
+              if (window.innerWidth <= 768) {
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('open');
+              }
+            }
+          });
+        });
+      })();
+
+      /* ==========================================================
+         7. Responsive Sidebar Toggle (Mobile & Desktop)
+         ========================================================== */
+      (function initSidebarToggle() {
+        var toggleBtn = document.getElementById('sidebarToggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebarOverlay');
+
+        if (!toggleBtn || !sidebar) return;
+
+        toggleBtn.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            sidebar.classList.toggle('open');
+            if (overlay) overlay.classList.toggle('open');
+          } else {
+            // Desktop: collapse/expand sidebar
+            var layout = document.querySelector('.layout');
+            if (layout) {
+              layout.classList.toggle('sidebar-hidden');
+            }
+            sidebar.classList.toggle('collapsed');
+          }
+        });
+
+        // Close sidebar on overlay click
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('open');
+          });
+        }
+      })();
+
+    })();
+  </script>
+</body>
+</html>
